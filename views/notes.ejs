@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="shortcut icon" type="image/jpg" href="/images/favicon.jpg"/>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function addList(){
+         console.log("add clicked");
+         window.location.href ="http://localhost:3000/add"
+      }
+    </script>
+    <style type="text/css">
+      input[type=checkbox][class="checked"] {
+    position: relative;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+input[type=checkbox][class="checked"]:after {
+    display: block;
+    content: "\00d7";
+    position: absolute;
+    top: 0;
+    visibility: visible;
+    text-align: center;
+
+    background: grey;
+    border-radius: 2px;
+    color: #000000;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+input[type=checkbox][class="checked"]:checked:after {
+    content: "";
+    background: grey;
+}
+      input[type=checkbox][class="unchecked"] {
+    position: relative;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+input[type=checkbox][class="unchecked"]:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    visibility: visible;
+    text-align: center;
+
+    background: grey;
+    border-radius: 2px;
+    color: #000000;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+input[type=checkbox][class="unchecked"]:checked:after {
+    content: "\2714";
+    background: grey;
+}
+    </style>
+  </head>
+  <body>
+  <div class="container-fluid col-sm-6 col-sm-offset-3" >
+    <% for(var i=0; i<d.todos.length; i++) {%>
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="text-align: center;">
+        <strong><%= d.todos[i].title %></strong><br>
+        <small><i><%= d.todos[i].description %></i></small>
+
+        </div>
+        <div class="panel-body">
+        <form action="/notes/0" method="post" target="">
+          <input type="hidden" name="lid" placeholder="" value=<%= d.todos[i].l_id %> >
+          <input type="hidden" name="index" value=<%= i %> >
+            <% for(var j=0; j<d.todos[i].list.length; j++) {%>
+            <% var something="ch-"+i+"-"+j.toString(); %>
+            <input type="hidden" name=<%= something %> value=<%= d.todos[i].list[j].completed %> >
+              <% if(d.todos[i].list[j].completed){ %>
+                <div><label> <input class="checked" type="checkbox" value=<%= j %> name="iid"><del><span style="margin: 10px;"><%= d.todos[i].list[j].item %></span></del></label></div>
+              <% }else{ %>
+                <div><label><input class="unchecked" type="checkbox" value=<%= j %> name="iid" ><span style="margin: 10px;"><%= d.todos[i].list[j].item %></span></label></div>
+              <% } %>
+            <% } %>
+
+          <button class="btn btn-success" type="submit" ><span class="glyphicon glyphicon-ok"></button>
+          <button class="btn btn-danger" type="submit" formaction="/notes/1"><span class="glyphicon glyphicon-trash"></button>
+        </form>
+        </div>
+      </div>
+    <% } %>
+      <button class="btn btn-primary center-block" type="button" onclick="addList()">Add <span class="glyphicon glyphicon-plus"></button>
+  </div>
+  </body>
+</html>
