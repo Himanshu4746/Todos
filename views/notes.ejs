@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       function addList(){
-         console.log("add clicked");
+        console.log("add clicked");
          window.location.href ="http://localhost:3000/add"
       }
     </script>
@@ -27,7 +27,7 @@ input[type=checkbox][class="checked"]:after {
     top: 0;
     visibility: visible;
     text-align: center;
-
+    
     background: grey;
     border-radius: 2px;
     color: #000000;
@@ -54,7 +54,7 @@ input[type=checkbox][class="unchecked"]:after {
     top: 0;
     visibility: visible;
     text-align: center;
-
+    
     background: grey;
     border-radius: 2px;
     color: #000000;
@@ -91,11 +91,12 @@ input[type=checkbox][class="unchecked"]:checked:after {
               <% }else{ %>
                 <div><label><input class="unchecked" type="checkbox" value=<%= j %> name="iid" ><span style="margin: 10px;"><%= d.todos[i].list[j].item %></span></label></div>
               <% } %>
+                <!--li><%= d.todos[i].list[j].completed %></li-->
             <% } %>
-
+         
           <button class="btn btn-success" type="submit" ><span class="glyphicon glyphicon-ok"></button>
           <button class="btn btn-danger" type="submit" formaction="/notes/1"><span class="glyphicon glyphicon-trash"></button>
-        </form>
+        </form>  
         </div>
       </div>
     <% } %>

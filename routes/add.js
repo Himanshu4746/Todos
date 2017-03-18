@@ -9,7 +9,8 @@ router.get('/', function(req, res, next) {
 //POST data
 router.post('/', function(req, res, next) {
  	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
- 	MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
+ 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
+ 	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
  		assert.equal(null, err);
 		if (err) throw err;
 		var title = req.body.Title;
@@ -31,22 +32,22 @@ router.post('/', function(req, res, next) {
 	            "i_id": 0
 		    });
 		db.collection('user').findOneAndUpdate(
-          	{ "id": "<id>" },
+          	{ "id": "sonal" },
             { $inc: { seq: 1 } },
-            {
+            { 
 		      "upsert": true,
 		      "returnOriginal": true
 		    },function (err, result) {
-           		//console.log(result);
+           		console.log(result);
 			if (!result){
 				res.redirect('/signup');
 			 }else if(err){
 			 	throw err;
-				//res.send("error!");
+				res.send("error!");
 			}
 			else{
 				var l_id = result.value.seq+1;
-				db.collection('user').update({"id":"<id>"},{$push:{
+				db.collection('user').update({"id":"sonal"},{$push:{
 					"todos":{
 		                "title" : title,
 		                "description" : desc,
@@ -54,12 +55,12 @@ router.post('/', function(req, res, next) {
 		                "list" : items
 		            }
 	            }},{upsert:true}, function (err, result) {
-					if (err){
+					if (err){ 
 						throw err;
 						//res.send(err);
 					}
 					else{
-						res.redirect('/notes?id=<id>');
+						res.redirect('/notes?id=sonal');
 					}
 		   		},false,true);
 			}
