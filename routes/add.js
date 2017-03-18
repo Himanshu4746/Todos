@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var session = require('express-session');
 
 /* GET signup page. */
 router.get('/', function(req, res, next) {
@@ -17,7 +18,7 @@ router.post('/', function(req, res, next) {
   		var desc = req.body.Description;
   		var items=[];
   		if(Array.isArray(req.body.Item))
-  		for(var i=0;i<req.body.Item.length;i++)
+  			for(var i=0;i<req.body.Item.length;i++)
   			{	items.push({
 		        	"item" : req.body.Item[i],
 	            	"completed" : 0,
@@ -31,8 +32,9 @@ router.post('/', function(req, res, next) {
 	            "completed" : 0,
 	            "i_id": 0
 		    });
+  		var id = req.session.user;
 		db.collection('user').findOneAndUpdate(
-          	{ "id": "sonal" },
+          	{ "id": id },
             { $inc: { seq: 1 } },
             { 
 		      "upsert": true,
@@ -46,8 +48,9 @@ router.post('/', function(req, res, next) {
 				res.send("error!");
 			}
 			else{
+				var id = req.session.user;
 				var l_id = result.value.seq+1;
-				db.collection('user').update({"id":"sonal"},{$push:{
+				db.collection('user').update({"id":id},{$push:{
 					"todos":{
 		                "title" : title,
 		                "description" : desc,
@@ -60,7 +63,9 @@ router.post('/', function(req, res, next) {
 						//res.send(err);
 					}
 					else{
-						res.redirect('/notes?id=sonal');
+						//res.redirect('/notes?id=sonal');
+						res.redirect('/notes');
+
 					}
 		   		},false,true);
 			}

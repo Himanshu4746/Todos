@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
 						res.send("error!");
 					}
 					else{
-						res.redirect('/notes?id='+id);
+						res.redirect('/');
 					}
 		   		});
 			}else if(err){

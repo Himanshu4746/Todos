@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var session = require('express-session');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,7 +9,8 @@ router.get('/', function(req, res, next) {
 	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 		if (err) throw err ;
     	//console.log(req.query.id);
-    	var id = req.query.id;
+    	//var id = req.query.id;
+    	var id = req.session.user;
 		db.collection('user').find({"id":id}).toArray(function (err, result) {
 			if (err) throw err
 			//console.log("my string: "+JSON.stringify(result[0]));
@@ -48,14 +50,16 @@ router.post('/:state',function(req, res, next){
 						object["todos."+req.body.index+".list."+req.body.iid[i]+".completed"]=z;
 					}
 					console.log(JSON.stringify(object))
-					db.collection('user').update({"id":"sonal"},{
+					var ID = req.session.user;
+					db.collection('user').update({"id":ID},{
 						$set:object
 			  		},function (err, result) {
 						if (err) throw err;
 			   		},false,true);	
 				});
 			}
-			res.redirect('/notes?id=sonal');
+			//res.redirect('/notes?id=sonal');
+			res.redirect('/notes');
 			break;
 		case "1":
 			if(req.body.lid)
@@ -68,7 +72,8 @@ router.post('/:state',function(req, res, next){
 				//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 				MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 					if (err) throw err ;
-					db.collection('user').update({"id":"sonal"},{$pull:object
+					var ID = req.session.user;
+					db.collection('user').update({"id":ID},{$pull:object
 		            }, function (err, result) {
 						if (err){ 
 							throw err;
@@ -76,7 +81,8 @@ router.post('/:state',function(req, res, next){
 			   		});	
 				});
 			}
-			res.redirect('/notes?id=sonal');
+			//res.redirect('/notes?id=sonal');
+			res.redirect('/notes');
 			break;
 		}
 	}

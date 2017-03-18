@@ -4,12 +4,12 @@ var router = express.Router();
 //for session
 //var parseurl = require('parseurl')
 var session = require('express-session');
-var sess;
+//var sess;
 
 // GET home page
 router.get('/', function(req, res, next) {
-	sess = req.session;
-	console.log(sess);
+	// sess = req.session;
+	// console.log(sess);
 	res.render('index', { title: 'Login'});
 /*	var MongoClient = require('mongodb').MongoClient;
  	
@@ -29,8 +29,6 @@ router.get('/', function(req, res, next) {
 //POST data
 router.post('/', function(req, res, next) {
 	console.log(req.body);
-	//req.session.user = req.body.id;
-	//console.log(req.session.user);
 	var MongoClient = require('mongodb').MongoClient;
 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
@@ -48,7 +46,10 @@ router.post('/', function(req, res, next) {
 				res.send("error!");
 			}
 			else{
-				res.redirect('/notes?id='+id);
+				req.session.user = req.body.id;
+				console.log(req.session.user);
+				res.redirect('/notes');
+				//res.redirect('/notes?id='+id);
 			}
 			//console.log(result);
 			//using url query  http://localhost:3000/?img=abcd&net=xyz
