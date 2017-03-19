@@ -26,7 +26,9 @@ router.post('/', function(req, res, next) {
 						res.send("error!");
 					}
 					else{
-						res.redirect('/');
+						req.session.user = req.body.id;
+						console.log(req.session.user);
+						res.redirect('/notes');
 					}
 		   		});
 			}else if(err){
