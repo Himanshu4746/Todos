@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
 
 //POST data
 router.post('/', function(req, res, next) {
-	console.log(req.body);
  	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 	//To connect using a driver via the standard MongoDB URI
@@ -26,7 +25,6 @@ router.post('/', function(req, res, next) {
 					}
 					else{
 						req.session.user = req.body.id;
-						console.log(req.session.user);
 						res.redirect('/notes');
 					}
 		   		});

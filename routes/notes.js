@@ -36,7 +36,6 @@ router.post('/:state',function(req, res, next){
 						var z=req.body["ch-"+req.body.index+"-"+req.body.iid[i].toString()]=="0"?1:0;	
 						object["todos."+req.body.index+".list."+req.body.iid[i]+".completed"]=z;
 					}
-					console.log(JSON.stringify(object))
 					var ID = req.session.user;
 					db.collection('user').update({"id":ID},{
 						$set:object
@@ -50,11 +49,9 @@ router.post('/:state',function(req, res, next){
 		case "1":
 			if(req.body.lid)
 			{
-				console.log(req.body.lid)
 				var MongoClient = require('mongodb').MongoClient,assert=require('assert');	
 				object={"todos":{}}
 				object.todos["l_id"]=parseInt(req.body.lid);
-				console.log(JSON.stringify(object))
 				//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 				//To connect using a driver via the standard MongoDB URI
 				MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {

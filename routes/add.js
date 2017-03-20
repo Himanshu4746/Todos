@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
 //POST data
 router.post('/', function(req, res, next) {
  	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
- 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
  	//To connect using a driver via the standard MongoDB URI
+ 	//mongodb://<dbuser>:<dbpassword>@ds129030.mlab.com:29030/todo
  	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
  		assert.equal(null, err);
 		if (err) throw err;
@@ -41,33 +41,33 @@ router.post('/', function(req, res, next) {
 		      "upsert": true,
 		      "returnOriginal": true
 		    },function (err, result) {
-           		console.log(result);
-			if (!result){
-				res.redirect('/signup');
-			 }else if(err){
-			 	throw err;
-				res.send("error!");
+				if (!result){
+					res.redirect('/signup');
+				 }else if(err){
+				 	throw err;
+					res.send("error!");
+				}
+				else{
+					var id = req.session.user;
+					var l_id = result.value.seq+1;
+					db.collection('user').update({"id":id},{$push:{
+						"todos":{
+			                "title" : title,
+			                "description" : desc,
+			                "l_id": l_id,
+			                "list" : items
+			            }
+		            }},{upsert:true}, function (err, result) {
+						if (err){ 
+							throw err;
+						}
+						else{
+							res.redirect('/notes');
+						}
+			   		},false,true);
+				}
 			}
-			else{
-				var id = req.session.user;
-				var l_id = result.value.seq+1;
-				db.collection('user').update({"id":id},{$push:{
-					"todos":{
-		                "title" : title,
-		                "description" : desc,
-		                "l_id": l_id,
-		                "list" : items
-		            }
-	            }},{upsert:true}, function (err, result) {
-					if (err){ 
-						throw err;
-					}
-					else{
-						res.redirect('/notes');
-					}
-		   		},false,true);
-			}
-	   	});
+		);
 	});
 });
 
