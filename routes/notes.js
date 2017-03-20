@@ -6,14 +6,12 @@ var session = require('express-session');
 router.get('/', function(req, res, next) {
 	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
+	//To connect using a driver via the standard MongoDB URI
 	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 		if (err) throw err ;
-    	//console.log(req.query.id);
-    	//var id = req.query.id;
     	var id = req.session.user;
 		db.collection('user').find({"id":id}).toArray(function (err, result) {
 			if (err) throw err
-			//console.log("my string: "+JSON.stringify(result[0]));
 			res.render('notes', { 
 				title:"notes",
 				"d":result[0]
@@ -21,18 +19,6 @@ router.get('/', function(req, res, next) {
 	   	});
 	});
 });
-
-// router.post('/', function(req, res, next) {
-// 	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
-// 	MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
-// 		if (err) throw err ;
-//     	var id = req.query.id;
-// 		db.collection('user').find({"id":id}).toArray(function (err, result) {
-// 			if (err) throw err
-// 			res.redirect('/add');
-// 	   	});
-// 	});
-// });
 
 router.post('/:state',function(req, res, next){
 	if(req.params.state){
@@ -42,6 +28,7 @@ router.post('/:state',function(req, res, next){
 			{
 				var MongoClient = require('mongodb').MongoClient,assert=require('assert');	
 				//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
+				//To connect using a driver via the standard MongoDB URI
 				MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 					if (err) throw err ;
 					var object={};
@@ -58,7 +45,6 @@ router.post('/:state',function(req, res, next){
 			   		},false,true);	
 				});
 			}
-			//res.redirect('/notes?id=sonal');
 			res.redirect('/notes');
 			break;
 		case "1":
@@ -70,6 +56,7 @@ router.post('/:state',function(req, res, next){
 				object.todos["l_id"]=parseInt(req.body.lid);
 				console.log(JSON.stringify(object))
 				//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
+				//To connect using a driver via the standard MongoDB URI
 				MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 					if (err) throw err ;
 					var ID = req.session.user;
@@ -81,7 +68,6 @@ router.post('/:state',function(req, res, next){
 			   		});	
 				});
 			}
-			//res.redirect('/notes?id=sonal');
 			res.redirect('/notes');
 			break;
 		}

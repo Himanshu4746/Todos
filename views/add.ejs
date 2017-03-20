@@ -38,8 +38,6 @@
     <script type="text/javascript">
       function runScript(e) {
         if (e.keyCode == 13) {
-          // var tb = document.getElementById("scriptBox");
-          // eval(tb.value);
           console.log("enter pressed");
           var tb = document.createElement("input");
           tb.setAttribute('class', "myInput");
@@ -48,52 +46,43 @@
           tb.setAttribute('placeholder','Item');
           tb.setAttribute('onkeypress','return runScript(event)');
           tb.setAttribute('required','1');
-          //tb.style = " border:none; outline: none;   ";
           document.getElementById("listItem").appendChild(tb).focus();
           return false;
         }
-        // if(e.keyCode == 8 || e.keyCode == 46){
-        //   console.log("delete");
-        //   return false;
-        // }
       }
       document.addEventListener("keydown", KeyCheck);
       function KeyCheck(event)
       {
-         var KeyID = event.keyCode;
-         if(KeyID == 8 || KeyID == 46){
-            console.log("backspace/delete");
-            var elem = document.activeElement;
-            var pelem = elem.previousSibling;
-            if(elem.value=="" && elem.id!="scriptBox"){
-              elem.parentNode.removeChild(elem);
-              console.log(pelem);
-              pelem.focus();
-
-            }
-           
-         }
+        var KeyID = event.keyCode;
+        if(KeyID == 8 || KeyID == 46){
+          console.log("backspace/delete");
+          var elem = document.activeElement;
+          var pelem = elem.previousSibling;
+          if(elem.value=="" && elem.id!="scriptBox"){
+            elem.parentNode.removeChild(elem);
+            console.log(pelem);
+            pelem.focus();
+          }        
+        }
       }
     </script>
   </head>
   <body>
-  <div class="container">
-      <div class="panel panel-primary">
-        <form action="/add" method="post" target="">
-          <div class="panel-heading">
-            <div class="form-group">
-              <input class="form-control" type="text" name="Title" placeholder="Title" required=1><br>
-              <input class="form-control" type="text" name="Description" placeholder="Description" required=1>
+    <div class="container">
+        <div class="panel panel-primary">
+          <form action="/add" method="post" target="">
+            <div class="panel-heading">
+              <div class="form-group">
+                <input class="form-control" type="text" name="Title" placeholder="Title" required=1><br>
+                <input class="form-control" type="text" name="Description" placeholder="Description" required=1>
+              </div>
             </div>
-          </div>
-
-          <div class="panel-body" id="listItem">
-            <input class="myInput" type="text" name="Item" id="scriptBox" placeholder="Item" 
-            onkeypress="return runScript(event)" required='1' ></div>
-          <input class="btn btn-primary" type="submit" value="Submit">
-        </form>
-      </div>
-  </div>
-
+            <div class="panel-body" id="listItem">
+              <input class="myInput" type="text" name="Item" id="scriptBox" placeholder="Item" 
+              onkeypress="return runScript(event)" required='1' ></div>
+            <input class="btn btn-primary" type="submit" value="Submit">
+          </form>
+        </div>
+    </div>
   </body>
 </html>
