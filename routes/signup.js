@@ -10,9 +10,8 @@ router.get('/', function(req, res, next) {
 //POST data
 router.post('/', function(req, res, next) {
  	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
-	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 	//To connect using a driver via the standard MongoDB URI
-	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
+	MongoClient.connect('mongodb://<dbuser>:<dbpassword>@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 		assert.equal(null, err);
 		//if (err) throw err
 		var id = req.body.id;
