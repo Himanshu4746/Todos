@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
 	//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 	//To connect using a driver via the standard MongoDB URI
-	MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
+	MongoClient.connect('mongodb://<user>:<pass>@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 		if (err) throw err ;
     	var id = req.session.user;
 		db.collection('user').find({"id":id}).toArray(function (err, result) {
@@ -29,7 +29,7 @@ router.post('/:state',function(req, res, next){
 				var MongoClient = require('mongodb').MongoClient,assert=require('assert');	
 				//MongoClient.connect('mongodb://localhost:27017/todo', function (err, db) {
 				//To connect using a driver via the standard MongoDB URI
-				MongoClient.connect('mongodb://himanshu4746:qwe123@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
+				MongoClient.connect('mongodb://<user>:<pass>@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
 					if (err) throw err ;
 					var object={};
 					for(var i=0;i<req.body.iid.length;i++){

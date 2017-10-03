@@ -10,7 +10,8 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
+  <div class="col-md-offset-4 col-md-4">
+    <h1 class="text-center"><%= title %></h1>
 	  <form action="/" method="post" target="">
       <div class="form-group">
         UserID: <input class="form-control" type="text" name="id" placeholder="UserId" required=1><br>
@@ -21,5 +22,6 @@
       </div>
     </form>
     <a href='/signup'>Signup</a>
+  </div>
   </body>
 </html>
