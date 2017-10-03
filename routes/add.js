@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
  	var MongoClient = require('mongodb').MongoClient,assert=require('assert');
  	//To connect using a driver via the standard MongoDB URI
- 	MongoClient.connect('mongodb://<dbuser>:<dbpassword>@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
+ 	MongoClient.connect('mongodb://<user>:<pass>@ds129030.mlab.com:29030/todo',{authMechanism: 'SCRAM-SHA-1'}, function (err, db) {
  		assert.equal(null, err);
 		if (err) throw err;
 		var title = req.body.Title;

@@ -10,7 +10,8 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1>Signup</h1>
+  <div class="col-md-offset-4 col-md-4">
+    <h1 class="text-center">Signup</h1>
     <% var msg = (msg == "ID already exists!" ? "ID already exists!" : " ") ; %>
     <h3><%= msg %></h3>
     <form action="/signup" method="post" target="">
@@ -22,5 +23,6 @@
       <input class="btn btn-primary" type="submit" value="Submit">
     </div>
     </form>
+  </div>
   </body>
 </html>
