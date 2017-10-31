@@ -1,18 +1,18 @@
 ## Todos
 
-[Login](https://todomemo.herokuapp.com)
+<a href="https://todomemo.herokuapp.com" target="_blank">Login</a>
 
-[Signup](https://todomemo.herokuapp.com/signup)
+<a href="https://todomemo.herokuapp.com/signup" target="_blank">Signup</a>
 
 ## Screenshot
 
 ![Signup](Screenshot/Login.png)
 
-[Login](https://todomemo.herokuapp.com)
+<a href="https://todomemo.herokuapp.com" target="_blank">Login</a>
 
 ![Signup](Screenshot/Signup.png)
 
-[Signup](https://todomemo.herokuapp.com/signup)
+<a href="https://todomemo.herokuapp.com/signup" target="_blank">Signup</a>
 
 ![Signup](Screenshot/List.png)
 
